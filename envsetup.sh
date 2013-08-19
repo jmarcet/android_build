@@ -656,7 +656,7 @@ function m()
 {
     T=$(gettop)
     if [ "$T" ]; then
-        make -C $T $@
+        make -C $T showcommands $@
     else
         echo "Couldn't locate the top of the tree.  Try setting TOP."
     fi
@@ -687,7 +687,7 @@ function mm()
     # If we're sitting in the root of the build tree, just do a
     # normal make.
     if [ -f build/core/envsetup.mk -a -f Makefile ]; then
-        make $@
+        make showcommands $@
     else
         # Find the closest Android.mk file.
         T=$(gettop)
@@ -699,7 +699,7 @@ function mm()
         elif [ ! "$M" ]; then
             echo "Couldn't locate a makefile from the current directory."
         else
-            ONE_SHOT_MAKEFILE=$M make -C $T all_modules $@
+            ONE_SHOT_MAKEFILE=$M make -C $T all_modules showcommands $@
         fi
     fi
 }
@@ -746,7 +746,7 @@ function mmm()
                 fi
             fi
         done
-        ONE_SHOT_MAKEFILE="$MAKEFILE" make -C $T $DASH_ARGS $MODULES $ARGS
+        ONE_SHOT_MAKEFILE="$MAKEFILE" make -C $T $DASH_ARGS $MODULES showcommands $ARGS
     else
         echo "Couldn't locate the top of the tree.  Try setting TOP."
     fi
@@ -1118,7 +1118,7 @@ function smoketest()
         return
     fi
 
-    (cd "$T" && make SmokeTest SmokeTestApp) &&
+    (cd "$T" && make showcommands SmokeTest SmokeTestApp) &&
       adb uninstall com.android.smoketest > /dev/null &&
       adb uninstall com.android.smoketest.tests > /dev/null &&
       adb install $ANDROID_PRODUCT_OUT/data/app/SmokeTestApp.apk &&
@@ -1184,10 +1184,10 @@ function godir () {
 function mka() {
     case `uname -s` in
         Darwin)
-            make -j `sysctl hw.ncpu|cut -d" " -f2` "$@"
+            make -j `sysctl hw.ncpu|cut -d" " -f2` showcommands "$@"
             ;;
         *)
-            schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
+            schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) showcommands "$@"
             ;;
     esac
 }
@@ -1203,15 +1203,15 @@ function mkapush() {
     case `uname -s` in
         Darwin)
             if [ ! -f $ANDROID_PRODUCT_OUT/installed-files.txt ]; then
-                make -j `sysctl hw.ncpu|cut -d" " -f2` installed-file-list
+                make -j `sysctl hw.ncpu|cut -d" " -f2` showcommands installed-file-list
             fi
-            make -j `sysctl hw.ncpu|cut -d" " -f2` "$@"
+            make -j `sysctl hw.ncpu|cut -d" " -f2` showcommands "$@"
             ;;
         *)
             if [ ! -f $ANDROID_PRODUCT_OUT/installed-files.txt ]; then
-                schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) installed-file-list
+                schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) showcommands installed-file-list
             fi
-            schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) "$@"
+            schedtool -B -n 1 -e ionice -n 1 make -j$(cat /proc/cpuinfo | grep "^processor" | wc -l) showcommands "$@"
             ;;
     esac
     case $@ in
