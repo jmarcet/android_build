@@ -147,7 +147,7 @@ ifeq ($(TARGET_KERNEL_MODULES),)
 endif
 
 $(KERNEL_OUT):
-	mkdir -p $(KERNEL_OUT)
+	mkdir -p $(KERNEL_OUT)/drivers/thermal/intelli
 	mkdir -p $(KERNEL_MODULES_OUT)
 
 $(KERNEL_CONFIG): $(KERNEL_OUT)
