@@ -272,6 +272,19 @@ include build/core/pdk_config.mk
 ### between the build variants
 ###
 
+## ProjectBOX added settings ##
+ADDITIONAL_BUILD_PROPERTIES += ro.config.htc.nocheckin=1
+ADDITIONAL_BUILD_PROPERTIES += ro.config.nocheckin=1
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.enable.3g.prefix=1
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.hep=1
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.hsxpa=3
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.enable.dtm=1
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.gprsclass=12
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.hsdpa.category=8
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.enable.a53=1
+ADDITIONAL_BUILD_PROPERTIES += ro.ril.hsupa.category=5
+ADDITIONAL_BUILD_PROPERTIES += debug.sf.hw=1
+
 is_sdk_build :=
 
 ifneq ($(filter sdk win_sdk sdk_addon,$(MAKECMDGOALS)),)

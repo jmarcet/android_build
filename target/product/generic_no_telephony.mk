@@ -22,13 +22,9 @@ PRODUCT_POLICY := android.policy_phone
 PRODUCT_PACKAGES := \
     DeskClock \
     Bluetooth \
-    Calculator \
     Calendar \
     CertInstaller \
     DrmProvider \
-	Email \
-    Email2 \
-    Exchange2 \
     FusedLocation \
     Gallery2 \
     InputDevices \
@@ -45,7 +41,6 @@ PRODUCT_PACKAGES := \
 	busybox \
     rsync \
     libncurses \
-    nano \
     lsof \
     bash 
 
